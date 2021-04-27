@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Canvas x:Name="spielfeld" HorizontalAlignment="Left" Height="230" Margin="170,121,0,0" VerticalAlignment="Top" Width="400"/>
+        <Button x:Name="start_button" Content="Start" HorizontalAlignment="Left" Margin="484,26,0,0" VerticalAlignment="Top" Width="120" Click="start_button_Click" Height="45" FontSize="30"/>
+        <Button Content="Nächster Schritt" HorizontalAlignment="Left" Margin="170,26,0,0" VerticalAlignment="Top" Width="164" RenderTransformOrigin="1.655,0.65" Click="Button_Naester_Schritt_Click" Height="45" FontSize="20"/>
+
     </Grid>
 </Window>
