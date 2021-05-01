@@ -21,15 +21,17 @@ namespace GameOfLife
     /// </summary>
     public partial class MainWindow : Window
     {
-        /*public int CellNumberWidth { get; set; } = 30;
-          public int CellNumberHeight { get; set; } = 30;
-          Rectangle[,] Felder => new Rectangle[CellNumberWidth, CellNumberHeight]; */
-        const int CellNumberWidth = 30;
-        const int CellNumberHeight = 30;
+        int CellNumberWidth = 30;
+        int CellNumberHeight = 30;
         DispatcherTimer timer = new DispatcherTimer();
-
-        Rectangle[,] Felder = new Rectangle[CellNumberWidth, CellNumberHeight];
-        List<List<Rectangle>> Felder2 = new List<List<Rectangle>>();
+        List<List<Rectangle>> Felder = new List<List<Rectangle>>();
+        /*Felder Liste { L[] , L[] , L[] , L[] , L[] , L[] }  height <-->
+         *                [] ,  [] ,  [] ,  [] ,  [] ,  []   
+         *                [] ,  [] ,  [] ,  [] ,  [] ,  []             -
+         *                [] ,  [] ,  [] ,  [] ,  [] ,  []    width    -
+         *                [] ,  [] ,  [] ,  [] ,  [] ,  []             -
+         *                [] ,  [] ,  [] ,  [] ,  [] ,  []
+         */
 
         public MainWindow()
         {
@@ -37,10 +39,12 @@ namespace GameOfLife
 
             spielfeld.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             spielfeld.Arrange(new Rect(0.0, 0.0, spielfeld.DesiredSize.Width, spielfeld.DesiredSize.Height));
+            Felder = adjustList(Felder, CellNumberHeight);
 
-            for (int height = 0; height < CellNumberWidth; height++)
+            for (int height = 0; height < CellNumberHeight; height++)
             {
-                for (int width = 0; width < CellNumberHeight; width++)
+                //Felder.Add(new List<Rectangle>());
+                for (int width = 0; width < CellNumberWidth; width++)
                 {
                     Rectangle r = new Rectangle();
                     r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
@@ -51,7 +55,8 @@ namespace GameOfLife
                     Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
                     r.MouseDown += R_MouseDown;
 
-                    Felder[height, width] = r;
+                    Felder[height].Add(r);
+
                 }
             }
 
@@ -77,7 +82,6 @@ namespace GameOfLife
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
-            Felder2 = adjustList(Felder2, CellNumberWidth);
 
             for (int height = 0; height < CellNumberWidth; height++)
             {
@@ -92,7 +96,7 @@ namespace GameOfLife
                     Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
                     r.MouseDown += R_MouseDown;
 
-                    Felder[height, width] = r;
+                    Felder[height].Add(r);
                 }
             }
         }
@@ -131,21 +135,21 @@ namespace GameOfLife
 
                     int nachbarn = 0;
 
-                    if (Felder[topCell, leftCell].Fill == Brushes.DeepPink)
+                    if (Felder[topCell][leftCell].Fill == Brushes.DeepPink)
                     { nachbarn++; }
-                    if (Felder[topCell, width].Fill == Brushes.DeepPink)
+                    if (Felder[topCell][width].Fill == Brushes.DeepPink)
                     { nachbarn++; }
-                    if (Felder[topCell, rightCell].Fill == Brushes.DeepPink)
+                    if (Felder[topCell][rightCell].Fill == Brushes.DeepPink)
                     { nachbarn++; }
-                    if (Felder[height, leftCell].Fill == Brushes.DeepPink)
+                    if (Felder[height][leftCell].Fill == Brushes.DeepPink)
                     { nachbarn++; }
-                    if (Felder[height, rightCell].Fill == Brushes.DeepPink)
+                    if (Felder[height][rightCell].Fill == Brushes.DeepPink)
                     { nachbarn++; }
-                    if (Felder[botCell, leftCell].Fill == Brushes.DeepPink)
+                    if (Felder[botCell][leftCell].Fill == Brushes.DeepPink)
                     { nachbarn++; }
-                    if (Felder[botCell, width].Fill == Brushes.DeepPink)
+                    if (Felder[botCell][width].Fill == Brushes.DeepPink)
                     { nachbarn++; }
-                    if (Felder[botCell, rightCell].Fill == Brushes.DeepPink)
+                    if (Felder[botCell][rightCell].Fill == Brushes.DeepPink)
                     { nachbarn++; }
 
                     anzahlNachbarn[height, width] = nachbarn;
@@ -160,11 +164,11 @@ namespace GameOfLife
                 {
                     if (anzahlNachbarn[height, width] < 2 || anzahlNachbarn[height, width] > 3)
                     {
-                        Felder[height, width].Fill = Brushes.MediumAquamarine;
+                        Felder[height][width].Fill = Brushes.MediumAquamarine;
                     }
                     else if (anzahlNachbarn[height, width] == 3)
                     {
-                        Felder[height, width].Fill = Brushes.DeepPink;
+                        Felder[height][width].Fill = Brushes.DeepPink;
                     }
                     // Felder[height, width].Fill = (anzahlNachbarn[height, width] < 2 || anzahlNachbarn[height, width] > 3)  ? Brushes.Cyan : (anzahlNachbarn[height, width] == 3) ? Felder[height, width].Fill = Brushes.Red : ---;
                 }
@@ -194,7 +198,7 @@ namespace GameOfLife
             {
                 for (int width = 0; width < CellNumberHeight; width++)
                 {
-                    Felder[height, width].Fill = (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
+                    Felder[height][width].Fill = (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
                 }
             }
         }
