@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Canvas x:Name="spielfeld" HorizontalAlignment="Left" Height="230" Margin="170,121,0,0" VerticalAlignment="Top" Width="400"/>
+        <Canvas x:Name="spielfeld" HorizontalAlignment="Left" Height="254" Margin="86,97,0,0" VerticalAlignment="Top" Width="484" MouseWheel="spielfeld_MouseWheel_Zoom"/>
         <Button x:Name="startstop" Content="Start / Stop" HorizontalAlignment="Left" Margin="527,26,0,0" VerticalAlignment="Top" Width="190" Click="start_stop_button" Height="45" FontSize="20" RenderTransformOrigin="0.953,0.889"/>
         <Button Content="Nächster Schritt" HorizontalAlignment="Left" Margin="170,26,0,0" VerticalAlignment="Top" Width="164" RenderTransformOrigin="1.655,0.65" Click="Button_Naester_Schritt_Click" Height="45" FontSize="20"/>
-        <Button x:Name="random" Content="Random" HorizontalAlignment="Left" Margin="597,121,0,0" VerticalAlignment="Top" Width="120" Click="random_button" Height="44" FontSize="20" RenderTransformOrigin="0.1,0.111"/>
+        <Button x:Name="btn_random" Content="Random" HorizontalAlignment="Left" Margin="584,121,0,0" VerticalAlignment="Top" Width="133" Click="random_button" Height="44" FontSize="20" RenderTransformOrigin="0.1,0.111"/>
+        <Slider x:Name="zoomSlider" HorizontalAlignment="Left" Margin="584,222,0,0" VerticalAlignment="Top" Width="133" ValueChanged="Slider_ValueChanged" Maximum="100" TickFrequency="10" TickPlacement="BottomRight" />
 
     </Grid>
 </Window>

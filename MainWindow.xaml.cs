@@ -202,5 +202,27 @@ namespace GameOfLife
                 }
             }
         }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var st = new ScaleTransform();
+            spielfeld.RenderTransform = st;
+
+        }
+
+        private void spielfeld_MouseWheel_Zoom(object sender, MouseWheelEventArgs e)
+        {
+            spielfeld.MouseWheel += Spielfeld_MouseWheel;
+
+        }
+
+        private void Spielfeld_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var st = new ScaleTransform();
+            spielfeld.RenderTransform = st;
+            double zoom = e.Delta > 0 ? .1 : -.1;
+            st.ScaleX += zoom;
+            st.ScaleY += zoom;
+        }
     }
 }
