@@ -39,7 +39,6 @@ namespace GameOfLife
             ZoomViewbox.Width = 2400;
             ZoomViewbox.Height = 1350;
 
-
             for (int height = 0; height < CellNumberHeight; height++)
             {
                 //Felder.Add(new List<Rectangle>());
@@ -51,7 +50,6 @@ namespace GameOfLife
                         r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
                         r.Height = (spielfeld.ActualHeight / CellNumberHeight) - 1.0;
                         r.Fill = Brushes.Gray;
-
                         spielfeld.Children.Add(r);
                         Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
                         Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
@@ -72,14 +70,13 @@ namespace GameOfLife
                         Felder[height].Add(r);
 
                     }
-                    
-                    TransformGroup group = new TransformGroup();
-                    group.Children.Add(new TranslateTransform(-20,-10));
-                    spielfeld.RenderTransform = group;
-
                 }
             }
 
+            TransformGroup group = new TransformGroup();
+            group.Children.Add(new TranslateTransform(-20,-10));
+            spielfeld.RenderTransform = group;
+            
             timer.Interval = TimeSpan.FromSeconds(0.1);
             timer.Tick += Timer_Tick;
             this.ResizeMode = System.Windows.ResizeMode.CanMinimize;
