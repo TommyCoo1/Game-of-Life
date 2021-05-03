@@ -25,7 +25,7 @@ namespace GameOfLife
         int CellNumberHeight = 60;
         DispatcherTimer timer = new DispatcherTimer();
         List<List<Rectangle>> Felder = new List<List<Rectangle>>();
-        int timerticks = 0;
+        int timerticks = 1;
 
         public MainWindow()
         {
@@ -39,7 +39,6 @@ namespace GameOfLife
             ZoomViewbox.Width = 2400;
             ZoomViewbox.Height = 1350;
 
-
             for (int height = 0; height < CellNumberHeight; height++)
             {
                 //Felder.Add(new List<Rectangle>());
@@ -51,12 +50,13 @@ namespace GameOfLife
                         r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
                         r.Height = (spielfeld.ActualHeight / CellNumberHeight) - 1.0;
                         r.Fill = Brushes.Gray;
-
+                        
                         spielfeld.Children.Add(r);
                         Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
                         Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
-
+    
                         Felder[height].Add(r);
+
                     }
                     else
                     {
@@ -72,14 +72,13 @@ namespace GameOfLife
                         Felder[height].Add(r);
 
                     }
-                    
-                    TransformGroup group = new TransformGroup();
-                    group.Children.Add(new TranslateTransform(-20,-10));
-                    spielfeld.RenderTransform = group;
-
                 }
             }
 
+            TransformGroup group = new TransformGroup();
+            group.Children.Add(new TranslateTransform(-20,-10));
+            spielfeld.RenderTransform = group;
+            
             timer.Interval = TimeSpan.FromSeconds(0.1);
             timer.Tick += Timer_Tick;
             this.ResizeMode = System.Windows.ResizeMode.CanMinimize;
@@ -89,7 +88,7 @@ namespace GameOfLife
         private void Timer_Tick(object sender, EventArgs e)
         {
             updateCells();
-            tbxTimerTicks.Text = Convert.ToString(++timerticks);
+            tbxTimerTicks.Text = Convert.ToString(timerticks++);
         }
 
         public static List<List<Rectangle>> adjustList(List<List<Rectangle>> list, int numberoflists)
@@ -132,7 +131,7 @@ namespace GameOfLife
         private void Button_Naester_Schritt_Click(object sender, RoutedEventArgs e)
         {
             updateCells();
-            tbxTimerTicks.Text = Convert.ToString(++timerticks);
+            tbxTimerTicks.Text = Convert.ToString(timerticks++);
         }
 
         private void updateCells()
@@ -234,23 +233,9 @@ namespace GameOfLife
             ZoomViewbox.Width = zoom;
         }
 
-        private void Button_Clear_Click(object sender, RoutedEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            for (int height = 0; height < CellNumberWidth; height++)
-            {
-                for (int width = 0; width < CellNumberHeight; width++)
-                {
-                    if (Felder[height][width].Fill == Brushes.DeepPink)
-                        Felder[height][width].Fill = Brushes.MediumAquamarine;
-                }
-            }
-            timerticks = 0;
-            tbxTimerTicks.Text = Convert.ToString(timerticks);
-        }
 
-        private void Slider_TimerConfig(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            timer.Interval = TimeSpan.FromSeconds(1/(e.NewValue));
         }
     }
 }
