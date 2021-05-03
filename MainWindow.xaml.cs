@@ -45,16 +45,37 @@ namespace GameOfLife
                 //Felder.Add(new List<Rectangle>());
                 for (int width = 0; width < CellNumberWidth; width++)
                 {
-                    Rectangle r = new Rectangle();
-                    r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
-                    r.Height = (spielfeld.ActualHeight / CellNumberHeight) - 1.0;
-                    r.Fill = Brushes.MediumAquamarine;
-                    spielfeld.Children.Add(r);
-                    Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
-                    Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
-                    r.MouseDown += R_MouseDown;
+                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
+                    {
+                        Rectangle r = new Rectangle();
+                        r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
+                        r.Height = (spielfeld.ActualHeight / CellNumberHeight) - 1.0;
+                        r.Fill = Brushes.Gray;
 
-                    Felder[height].Add(r);
+                        spielfeld.Children.Add(r);
+                        Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
+                        Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
+
+                        Felder[height].Add(r);
+                    }
+                    else
+                    {
+                        Rectangle r = new Rectangle();
+                        r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
+                        r.Height = (spielfeld.ActualHeight / CellNumberHeight) - 1.0;
+                        r.Fill = Brushes.MediumAquamarine;
+                        spielfeld.Children.Add(r);
+                        Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
+                        Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
+                        r.MouseDown += R_MouseDown;
+
+                        Felder[height].Add(r);
+
+                    }
+                    
+                    TransformGroup group = new TransformGroup();
+                    group.Children.Add(new TranslateTransform(-20,-10));
+                    spielfeld.RenderTransform = group;
 
                 }
             }
