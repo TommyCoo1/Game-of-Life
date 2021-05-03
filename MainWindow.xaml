@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="1200">
     <Grid>
-        
+        <Viewbox x:Name="ZoomViewbox" Margin="10,0,10,70">
+            <Canvas x:Name="spielfeld" HorizontalAlignment="Left" Height="630" Margin="0,0,0,0" VerticalAlignment="Top" Width="1200"/>
+        </Viewbox>
+        <Button x:Name="startstop" Content="Start / Stop" HorizontalAlignment="Left" Margin="294,331,0,20" VerticalAlignment="Bottom" Width="203" Click="start_stop_button" Height="30" FontSize="20" RenderTransformOrigin="0.953,0.889"/>
+        <Button Content="Next" HorizontalAlignment="Left" Margin="45,331,0,20" VerticalAlignment="Bottom" Width="70" RenderTransformOrigin="1.655,0.65" Click="Button_Naester_Schritt_Click" Height="30" FontSize="20"/>
+        <Button x:Name="btn_random" Content="Random" HorizontalAlignment="Left" Margin="140,331,0,20" VerticalAlignment="Bottom" Width="132" Click="random_button" Height="30" FontSize="20" RenderTransformOrigin="0.1,0.111"/>
+        <Slider x:Name="zoomSlider" HorizontalAlignment="Left" Margin="531,331,0,20" VerticalAlignment="Bottom" Width="133" ValueChanged="Slider_ValueChanged" Maximum="40" TickFrequency="10" TickPlacement="BottomRight" Height="30" Minimum="10" Value="20"/>
+
     </Grid>
 </Window>
