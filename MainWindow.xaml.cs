@@ -21,8 +21,8 @@ namespace GameOfLife
     /// </summary>
     public partial class MainWindow : Window
     {
-        int CellNumberWidth = 30;
-        int CellNumberHeight = 30;
+        int CellNumberWidth = 60;
+        int CellNumberHeight = 60;
         DispatcherTimer timer = new DispatcherTimer();
         List<List<Rectangle>> Felder = new List<List<Rectangle>>();
         int timerticks = 0;
@@ -35,8 +35,10 @@ namespace GameOfLife
             spielfeld.Arrange(new Rect(0.0, 0.0, spielfeld.DesiredSize.Width, spielfeld.DesiredSize.Height));
             Felder = adjustList(Felder, CellNumberHeight);
 
-            ZoomViewbox.Width = 790; // TODO vllt braucht man es noch nicht
-            ZoomViewbox.Height = 300;//
+
+            ZoomViewbox.Width = 2400;
+            ZoomViewbox.Height = 1350;
+
 
             for (int height = 0; height < CellNumberHeight; height++)
             {
@@ -59,6 +61,7 @@ namespace GameOfLife
 
             timer.Interval = TimeSpan.FromSeconds(0.1);
             timer.Tick += Timer_Tick;
+            this.ResizeMode = System.Windows.ResizeMode.CanMinimize;
 
         }
 
@@ -204,26 +207,10 @@ namespace GameOfLife
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            var st = new ScaleTransform();
-            spielfeld.RenderTransform = st;
-            double zoom = e.NewValue / 1000;
-            st.ScaleX += zoom;
-            st.ScaleY += zoom;
-        }
-
-        private void spielfeld_MouseWheel_Zoom(object sender, MouseWheelEventArgs e)
-        {
-            spielfeld.MouseWheel += Spielfeld_MouseWheel;
-
-        }
-
-        private void Spielfeld_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var st = new ScaleTransform();
-            spielfeld.RenderTransform = st;
-            double zoom = e.Delta > 0 ? .1 : -.1;
-            st.ScaleX += zoom;
-            st.ScaleY += zoom;
+            double zoom = e.NewValue * 110;
+            
+            ZoomViewbox.Height = zoom;
+            ZoomViewbox.Width = zoom;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
