@@ -226,5 +226,10 @@ namespace GameOfLife
             timerticks = 1;
             tbxTimerTicks.Text = Convert.ToString(timerticks);
         }
+
+        private void Slider_TimerConfig(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            timer.Interval = TimeSpan.FromSeconds(1/(e.NewValue));
+        }
     }
 }
