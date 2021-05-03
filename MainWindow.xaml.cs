@@ -50,13 +50,11 @@ namespace GameOfLife
                         r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
                         r.Height = (spielfeld.ActualHeight / CellNumberHeight) - 1.0;
                         r.Fill = Brushes.Gray;
-                        
                         spielfeld.Children.Add(r);
                         Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
                         Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
-    
-                        Felder[height].Add(r);
 
+                        Felder[height].Add(r);
                     }
                     else
                     {
