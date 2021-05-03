@@ -213,9 +213,18 @@ namespace GameOfLife
             ZoomViewbox.Width = zoom;
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
-
+            for (int height = 0; height < CellNumberWidth; height++)
+            {
+                for (int width = 0; width < CellNumberHeight; width++)
+                {
+                    if (Felder[height][width].Fill == Brushes.DeepPink)
+                        Felder[height][width].Fill = Brushes.MediumAquamarine;
+                }
+            }
+            timerticks = 1;
+            tbxTimerTicks.Text = Convert.ToString(timerticks);
         }
     }
 }

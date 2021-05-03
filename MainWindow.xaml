@@ -14,7 +14,8 @@
         <Button Content="Next" HorizontalAlignment="Left" Margin="45,331,0,20" VerticalAlignment="Bottom" Width="70" RenderTransformOrigin="1.655,0.65" Click="Button_Naester_Schritt_Click" Height="30" FontSize="20"/>
         <Button x:Name="btn_random" Content="Random" HorizontalAlignment="Left" Margin="140,331,0,20" VerticalAlignment="Bottom" Width="132" Click="random_button" Height="30" FontSize="20" RenderTransformOrigin="0.1,0.111"/>
         <Slider x:Name="zoomSlider" HorizontalAlignment="Left" Margin="531,331,0,20" VerticalAlignment="Bottom" Width="133" ValueChanged="Slider_ValueChanged" Maximum="40" TickFrequency="10" TickPlacement="BottomRight" Height="30" Minimum="10" Value="20"/>
-        <TextBox x:Name="tbxTimerTicks" HorizontalAlignment="Left" Height="30" Margin="686,331,0,20" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="39" RenderTransformOrigin="2.796,-1.581" TextChanged="TextBox_TextChanged" Text="0" FontSize="18" TextAlignment="Center"/>
+        <TextBox x:Name="tbxTimerTicks" HorizontalAlignment="Left" Height="30" Margin="686,331,0,20" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="39" RenderTransformOrigin="2.796,-1.581" Text="0" FontSize="18" TextAlignment="Center"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Margin="762,0,0,20" VerticalAlignment="Bottom" Width="96" Height="30" FontSize="20" Click="Button_Clear_Click"/>
 
     </Grid>
 </Window>
