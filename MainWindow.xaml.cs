@@ -25,7 +25,7 @@ namespace GameOfLife
         int CellNumberHeight = 60;
         DispatcherTimer timer = new DispatcherTimer();
         List<List<Rectangle>> Felder = new List<List<Rectangle>>();
-        int timerticks = 0;
+        int timerticks = 1;
 
         public MainWindow()
         {
