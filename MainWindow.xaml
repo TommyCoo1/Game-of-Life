@@ -11,10 +11,14 @@
             <Canvas  x:Name="spielfeld" HorizontalAlignment="Left" Height="630" Margin="0,0,0,0" VerticalAlignment="Top" Width="1200"/>
         </Viewbox>
         <Button x:Name="startstop" Content="Start / Stop" HorizontalAlignment="Left" Margin="294,331,0,20" VerticalAlignment="Bottom" Width="203" Click="start_stop_button" Height="30" FontSize="20" RenderTransformOrigin="0.953,0.889"/>
-        <Button Content="Next" HorizontalAlignment="Left" Margin="45,331,0,20" VerticalAlignment="Bottom" Width="70" RenderTransformOrigin="1.655,0.65" Click="Button_Naester_Schritt_Click" Height="30" FontSize="20"/>
-        <Button x:Name="btn_random" Content="Random" HorizontalAlignment="Left" Margin="140,331,0,20" VerticalAlignment="Bottom" Width="132" Click="random_button" Height="30" FontSize="20" RenderTransformOrigin="0.1,0.111"/>
-        <Slider x:Name="zoomSlider" HorizontalAlignment="Left" Margin="531,331,0,20" VerticalAlignment="Bottom" Width="133" ValueChanged="Slider_ValueChanged" Maximum="40" TickFrequency="10" TickPlacement="BottomRight" Height="30" Minimum="10" Value="20"/>
-        <TextBox x:Name="tbxTimerTicks" HorizontalAlignment="Left" Height="30" Margin="686,331,0,20" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="39" RenderTransformOrigin="2.796,-1.581" TextChanged="TextBox_TextChanged" Text="0" FontSize="18" TextAlignment="Center"/>
+        <Button Content="Next" HorizontalAlignment="Left" Margin="200,0,0,20" VerticalAlignment="Bottom" Width="70" RenderTransformOrigin="1.655,0.65" Click="Button_Naester_Schritt_Click" Height="30" FontSize="20"/>
+        <Button x:Name="btn_random" Content="Random" HorizontalAlignment="Left" Margin="42,0,0,20" VerticalAlignment="Bottom" Width="132" Click="random_button" Height="30" FontSize="20" RenderTransformOrigin="0.1,0.111"/>
+        <Slider x:Name="zoomSlider" HorizontalAlignment="Left" Margin="721,0,0,20" VerticalAlignment="Bottom" Width="134" ValueChanged="Slider_ValueChanged" Maximum="40" TickFrequency="10" TickPlacement="BottomRight" Height="30" Minimum="10" Value="20"/>
+        <TextBox x:Name="tbxTimerTicks" HorizontalAlignment="Left" Height="30" Margin="1109,0,0,20" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="40" RenderTransformOrigin="2.796,-1.581" Text="0" FontSize="18" TextAlignment="Center"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Margin="523,0,0,20" VerticalAlignment="Bottom" Width="96" Height="30" FontSize="20" Click="Button_Clear_Click"/>
+        <Slider x:Name="trbTimerConfig" HorizontalAlignment="Left" Margin="924,0,0,20" VerticalAlignment="Bottom" Width="133" ValueChanged="Slider_TimerConfig" TickPlacement="BottomRight" Height="30" Value="1" RenderTransformOrigin="0,0" Background="#FF8D8D8D" Minimum="1" LargeChange="0" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"/>
+        <Image Source="/images/timer.png" HorizontalAlignment="Left" Height="35" Margin="884,614,0,0" VerticalAlignment="Top" Width="35" RenderTransformOrigin="0.657,0.457"/>
+        <Image Source="/images/squares.png" HorizontalAlignment="Left" Height="35" Margin="686,614,0,0" VerticalAlignment="Top" Width="35" RenderTransformOrigin="0.452,0.216"/>
 
     </Grid>
 </Window>
