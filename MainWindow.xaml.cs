@@ -25,13 +25,7 @@ namespace GameOfLife
         int CellNumberHeight = 30;
         DispatcherTimer timer = new DispatcherTimer();
         List<List<Rectangle>> Felder = new List<List<Rectangle>>();
-        /*Felder Liste { L[] , L[] , L[] , L[] , L[] , L[] }  height <-->
-         *                [] ,  [] ,  [] ,  [] ,  [] ,  []   
-         *                [] ,  [] ,  [] ,  [] ,  [] ,  []             -
-         *                [] ,  [] ,  [] ,  [] ,  [] ,  []    width    -
-         *                [] ,  [] ,  [] ,  [] ,  [] ,  []             -
-         *                [] ,  [] ,  [] ,  [] ,  [] ,  []
-         */
+        int timerticks = 0;
 
         public MainWindow()
         {
@@ -41,8 +35,8 @@ namespace GameOfLife
             spielfeld.Arrange(new Rect(0.0, 0.0, spielfeld.DesiredSize.Width, spielfeld.DesiredSize.Height));
             Felder = adjustList(Felder, CellNumberHeight);
 
-            ZoomViewbox.Width = 790;
-            ZoomViewbox.Height = 300;
+            ZoomViewbox.Width = 790; // TODO vllt braucht man es noch nicht
+            ZoomViewbox.Height = 300;//
 
             for (int height = 0; height < CellNumberHeight; height++)
             {
@@ -71,6 +65,7 @@ namespace GameOfLife
         private void Timer_Tick(object sender, EventArgs e)
         {
             updateCells();
+            tbxTimerTicks.Text = Convert.ToString(timerticks++);
         }
 
         public static List<List<Rectangle>> adjustList(List<List<Rectangle>> list, int numberoflists)
@@ -113,6 +108,7 @@ namespace GameOfLife
         private void Button_Naester_Schritt_Click(object sender, RoutedEventArgs e)
         {
             updateCells();
+            tbxTimerTicks.Text = Convert.ToString(timerticks++);
         }
 
         private void updateCells()
@@ -228,6 +224,11 @@ namespace GameOfLife
             double zoom = e.Delta > 0 ? .1 : -.1;
             st.ScaleX += zoom;
             st.ScaleY += zoom;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
