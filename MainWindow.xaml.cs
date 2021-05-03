@@ -41,6 +41,9 @@ namespace GameOfLife
             spielfeld.Arrange(new Rect(0.0, 0.0, spielfeld.DesiredSize.Width, spielfeld.DesiredSize.Height));
             Felder = adjustList(Felder, CellNumberHeight);
 
+            ZoomViewbox.Width = 790;
+            ZoomViewbox.Height = 300;
+
             for (int height = 0; height < CellNumberHeight; height++)
             {
                 //Felder.Add(new List<Rectangle>());
@@ -207,7 +210,9 @@ namespace GameOfLife
         {
             var st = new ScaleTransform();
             spielfeld.RenderTransform = st;
-
+            double zoom = e.NewValue / 1000;
+            st.ScaleX += zoom;
+            st.ScaleY += zoom;
         }
 
         private void spielfeld_MouseWheel_Zoom(object sender, MouseWheelEventArgs e)
