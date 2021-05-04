@@ -26,14 +26,15 @@ namespace GameOfLife
         DispatcherTimer timer = new DispatcherTimer();
         List<List<Rectangle>> Felder = new List<List<Rectangle>>();
         int timerticks = 0;
+        private GOLService service;
 
         public MainWindow()
         {
             InitializeComponent();
-
+            service = new GOLService(CellNumberWidth, CellNumberHeight, Felder);
             spielfeld.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             spielfeld.Arrange(new Rect(0.0, 0.0, spielfeld.DesiredSize.Width, spielfeld.DesiredSize.Height));
-            Felder = adjustList(Felder, CellNumberHeight);
+            Felder = service.adjustList(Felder, CellNumberHeight);
 
 
             ZoomViewbox.Width = 2400;
@@ -44,7 +45,7 @@ namespace GameOfLife
                 //Felder.Add(new List<Rectangle>());
                 for (int width = 0; width < CellNumberWidth; width++)
                 {
-                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
+                    if (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0)
                     {
                         Rectangle r = new Rectangle();
                         r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
@@ -74,9 +75,9 @@ namespace GameOfLife
             }
 
             TransformGroup group = new TransformGroup();
-            group.Children.Add(new TranslateTransform(-20,-10));
+            group.Children.Add(new TranslateTransform(-20, -10));
             spielfeld.RenderTransform = group;
-            
+
             timer.Interval = TimeSpan.FromSeconds(0.1);
             timer.Tick += Timer_Tick;
             this.ResizeMode = System.Windows.ResizeMode.CanMinimize;
@@ -85,19 +86,9 @@ namespace GameOfLife
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            updateCells();
+            Felder = service.updateCells();
             tbxTimerTicks.Text = Convert.ToString(++timerticks);
         }
-
-        public static List<List<Rectangle>> adjustList(List<List<Rectangle>> list, int numberoflists)
-        {
-            for (int i = 0; i < numberoflists; i++)
-            {
-                list.Add(new List<Rectangle>());
-            }
-            return list;
-        }
-
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
@@ -128,75 +119,8 @@ namespace GameOfLife
 
         private void Button_Naester_Schritt_Click(object sender, RoutedEventArgs e)
         {
-            updateCells();
+            Felder = service.updateCells();
             tbxTimerTicks.Text = Convert.ToString(++timerticks);
-        }
-
-        private void updateCells()
-        {
-            int[,] anzahlNachbarn = new int[CellNumberHeight, CellNumberWidth]; //Array für jede Zelle/Rechteck Nachbarn merken ==> Zelle - Anzahlnachbarn
-
-            for (int height = 0; height < CellNumberWidth; height++)
-            {
-                for (int width = 0; width < CellNumberHeight; width++)
-                {
-                    int topCell = height - 1;
-                        if (topCell < 0)
-                            topCell = CellNumberHeight - 1;
-                        int botCell = height + 1;
-                        if (botCell >= CellNumberHeight)
-                            botCell = 0;
-                        int leftCell = width - 1;
-                        if (leftCell < 0)
-                            leftCell = CellNumberWidth - 1;
-                        int rightCell = width + 1;
-                        if (rightCell >= CellNumberWidth)
-                            rightCell = 0;
-
-                        int nachbarn = 0;
-                    
-                        if (Felder[topCell][leftCell].Fill == Brushes.DeepPink)
-                        { nachbarn++; }
-                        if (Felder[topCell][width].Fill == Brushes.DeepPink)
-                        { nachbarn++; }
-                        if (Felder[topCell][rightCell].Fill == Brushes.DeepPink)
-                        { nachbarn++; }
-                        if (Felder[height][leftCell].Fill == Brushes.DeepPink)
-                        { nachbarn++; }
-                        if (Felder[height][rightCell].Fill == Brushes.DeepPink)
-                        { nachbarn++; }
-                        if (Felder[botCell][leftCell].Fill == Brushes.DeepPink)
-                        { nachbarn++; }
-                        if (Felder[botCell][width].Fill == Brushes.DeepPink)
-                        { nachbarn++; }
-                        if (Felder[botCell][rightCell].Fill == Brushes.DeepPink)
-                        { nachbarn++; }
-
-                        anzahlNachbarn[height, width] = nachbarn;
-                }
-            }
-
-            for (int height = 0; height < CellNumberWidth; height++)
-            {
-                for (int width = 0; width < CellNumberHeight; width++)
-                {
-                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
-                    {
-                        Felder[height][width].Fill = Brushes.Gray;
-                    }
-                    else
-                    {
-                        if (anzahlNachbarn[height, width] < 2 || anzahlNachbarn[height, width] > 3)
-                        {
-                            Felder[height][width].Fill = Brushes.MediumAquamarine;
-                        }
-                        else if (anzahlNachbarn[height, width] == 3)
-                        {
-                            Felder[height][width].Fill = Brushes.DeepPink;
-                        }
-                    }
-                }
-            }
         }
 
         private void start_stop_button(object sender, RoutedEventArgs e)
@@ -215,7 +139,6 @@ namespace GameOfLife
 
         private void random_button(object sender, RoutedEventArgs e)
         {
-
             Random random = new Random();
 
             for (int height = 0; height < CellNumberWidth; height++)
@@ -237,7 +160,7 @@ namespace GameOfLife
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             double zoom = e.NewValue * 110;
-            
+
             ZoomViewbox.Height = zoom;
             ZoomViewbox.Width = zoom;
         }
@@ -258,7 +181,7 @@ namespace GameOfLife
 
         private void Slider_TimerConfig(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            timer.Interval = TimeSpan.FromSeconds(1/(e.NewValue));
+            timer.Interval = TimeSpan.FromSeconds(1 / (e.NewValue));
         }
     }
 }
