@@ -143,40 +143,38 @@ namespace GameOfLife
                 for (int width = 0; width < CellNumberHeight; width++)
                 {
                     int topCell = height - 1;
-                    if (topCell < 0)
-                        topCell = CellNumberHeight - 1;
-                    int botCell = height + 1;
-                    if (botCell >= CellNumberHeight)
-                        botCell = 0;
-                    int leftCell = width - 1;
-                    if (leftCell < 0)
-                        leftCell = CellNumberWidth - 1;
-                    int rightCell = width + 1;
-                    if (rightCell >= CellNumberWidth)
-                        rightCell = 0;
+                        if (topCell < 0)
+                            topCell = CellNumberHeight - 1;
+                        int botCell = height + 1;
+                        if (botCell >= CellNumberHeight)
+                            botCell = 0;
+                        int leftCell = width - 1;
+                        if (leftCell < 0)
+                            leftCell = CellNumberWidth - 1;
+                        int rightCell = width + 1;
+                        if (rightCell >= CellNumberWidth)
+                            rightCell = 0;
 
-                    int nachbarn = 0;
+                        int nachbarn = 0;
+                    
+                        if (Felder[topCell][leftCell].Fill == Brushes.DeepPink)
+                        { nachbarn++; }
+                        if (Felder[topCell][width].Fill == Brushes.DeepPink)
+                        { nachbarn++; }
+                        if (Felder[topCell][rightCell].Fill == Brushes.DeepPink)
+                        { nachbarn++; }
+                        if (Felder[height][leftCell].Fill == Brushes.DeepPink)
+                        { nachbarn++; }
+                        if (Felder[height][rightCell].Fill == Brushes.DeepPink)
+                        { nachbarn++; }
+                        if (Felder[botCell][leftCell].Fill == Brushes.DeepPink)
+                        { nachbarn++; }
+                        if (Felder[botCell][width].Fill == Brushes.DeepPink)
+                        { nachbarn++; }
+                        if (Felder[botCell][rightCell].Fill == Brushes.DeepPink)
+                        { nachbarn++; }
 
-                    if (Felder[topCell][leftCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[topCell][width].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[topCell][rightCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[height][leftCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[height][rightCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[botCell][leftCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[botCell][width].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[botCell][rightCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-
-                    anzahlNachbarn[height, width] = nachbarn;
-
-
+                        anzahlNachbarn[height, width] = nachbarn;
                 }
             }
 
@@ -184,15 +182,21 @@ namespace GameOfLife
             {
                 for (int width = 0; width < CellNumberHeight; width++)
                 {
-                    if (anzahlNachbarn[height, width] < 2 || anzahlNachbarn[height, width] > 3)
+                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
                     {
-                        Felder[height][width].Fill = Brushes.MediumAquamarine;
+                        Felder[height][width].Fill = Brushes.Gray;
                     }
-                    else if (anzahlNachbarn[height, width] == 3)
+                    else
                     {
-                        Felder[height][width].Fill = Brushes.DeepPink;
+                        if (anzahlNachbarn[height, width] < 2 || anzahlNachbarn[height, width] > 3)
+                        {
+                            Felder[height][width].Fill = Brushes.MediumAquamarine;
+                        }
+                        else if (anzahlNachbarn[height, width] == 3)
+                        {
+                            Felder[height][width].Fill = Brushes.DeepPink;
+                        }
                     }
-                    // Felder[height, width].Fill = (anzahlNachbarn[height, width] < 2 || anzahlNachbarn[height, width] > 3)  ? Brushes.Cyan : (anzahlNachbarn[height, width] == 3) ? Felder[height, width].Fill = Brushes.Red : ---;
                 }
             }
         }
@@ -220,7 +224,14 @@ namespace GameOfLife
             {
                 for (int width = 0; width < CellNumberHeight; width++)
                 {
-                    Felder[height][width].Fill = (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
+                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
+                    {
+                        Felder[height][width].Fill = Brushes.Gray;
+                    }
+                    else
+                    {
+                        Felder[height][width].Fill = (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
+                    }
                 }
             }
         }
