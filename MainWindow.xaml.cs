@@ -139,14 +139,20 @@ namespace GameOfLife
 
         private void random_button(object sender, RoutedEventArgs e)
         {
-
             Random random = new Random();
 
             for (int height = 0; height < CellNumberWidth; height++)
             {
                 for (int width = 0; width < CellNumberHeight; width++)
                 {
-                    Felder[height][width].Fill = (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
+                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
+                    {
+                        Felder[height][width].Fill = Brushes.Gray;
+                    }
+                    else
+                    {
+                        Felder[height][width].Fill = (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
+                    }
                 }
             }
         }

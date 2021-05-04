@@ -83,13 +83,20 @@ namespace GameOfLife
             {
                 for (int width = 0; width < CellNumberHeight; width++)
                 {
-                    if (anzahlNachbarn[height, width] < 2 || anzahlNachbarn[height, width] > 3)
+                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
                     {
-                        Felder[height][width].Fill = Brushes.MediumAquamarine;
+                        Felder[height][width].Fill = Brushes.Gray;
                     }
-                    else if (anzahlNachbarn[height, width] == 3)
+                    else
                     {
-                        Felder[height][width].Fill = Brushes.DeepPink;
+                        if (anzahlNachbarn[height, width] < 2 || anzahlNachbarn[height, width] > 3)
+                        {
+                            Felder[height][width].Fill = Brushes.MediumAquamarine;
+                        }
+                        else if (anzahlNachbarn[height, width] == 3)
+                        {
+                            Felder[height][width].Fill = Brushes.DeepPink;
+                        }
                     }
                 }
             }
