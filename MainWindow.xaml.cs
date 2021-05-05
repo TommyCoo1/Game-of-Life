@@ -95,9 +95,9 @@ namespace GameOfLife
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
 
-            for (int height = 0; height < CellNumberWidth; height++)
+            for (int height = 0; height < CellNumberHeight; height++)
             {
-                for (int width = 0; width < CellNumberHeight; width++)
+                for (int width = 0; width < CellNumberWidth; width++)
                 {
                     Rectangle r = new Rectangle();
                     r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
@@ -142,10 +142,10 @@ namespace GameOfLife
         private void random_button(object sender, RoutedEventArgs e)
         {
             Random random = new Random();
-
-            for (int height = 0; height < CellNumberWidth; height++)
+            
+            for (int height = 0; height < CellNumberHeight; height++)
             {
-                for (int width = 0; width < CellNumberHeight; width++)
+                for (int width = 0; width < CellNumberWidth; width++)
                 {
                     if (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0))
                     {
@@ -169,9 +169,9 @@ namespace GameOfLife
 
         private void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
-            for (int height = 0; height < CellNumberWidth; height++)
+            for (int height = 0; height < CellNumberHeight; height++)
             {
-                for (int width = 0; width < CellNumberHeight; width++)
+                for (int width = 0; width < CellNumberWidth; width++)
                 {
                     if (Felder[height][width].Fill == Brushes.DeepPink)
                         Felder[height][width].Fill = Brushes.MediumAquamarine;
