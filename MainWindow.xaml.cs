@@ -21,31 +21,34 @@ namespace GameOfLife
     /// </summary>
     public partial class MainWindow : Window
     {
-        int CellNumberWidth = 60;
-        int CellNumberHeight = 60;
         DispatcherTimer timer = new DispatcherTimer();
         List<List<Rectangle>> Felder = new List<List<Rectangle>>();
         int timerticks = 0;
         private GOLService service;
+        
+        public bool useTorus
+        { get; set; }
+        public int CellNumberWidth
+        { get; set; }
+        public int CellNumberHeight
+        { get; set; }
 
-        public MainWindow()
+        public MainWindow(bool useTorus, int cellNumberHeight, int cellNumberWidth)
         {
             InitializeComponent();
-            service = new GOLService(CellNumberWidth, CellNumberHeight, Felder);
+            this.useTorus = useTorus;
+            this.CellNumberHeight = cellNumberHeight;
+            this.CellNumberWidth = cellNumberWidth;
+            service = new GOLService(CellNumberWidth, CellNumberHeight, Felder, this.useTorus);
             spielfeld.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             spielfeld.Arrange(new Rect(0.0, 0.0, spielfeld.DesiredSize.Width, spielfeld.DesiredSize.Height));
             Felder = service.adjustList(Felder, CellNumberHeight);
 
-
-            ZoomViewbox.Width = 2400;
-            ZoomViewbox.Height = 1350;
-
             for (int height = 0; height < CellNumberHeight; height++)
             {
-                //Felder.Add(new List<Rectangle>());
                 for (int width = 0; width < CellNumberWidth; width++)
                 {
-                    if (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0)
+                    if (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0))
                     {
                         Rectangle r = new Rectangle();
                         r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
@@ -77,8 +80,7 @@ namespace GameOfLife
             TransformGroup group = new TransformGroup();
             group.Children.Add(new TranslateTransform(-20, -10));
             spielfeld.RenderTransform = group;
-
-            timer.Interval = TimeSpan.FromSeconds(0.1);
+            
             timer.Tick += Timer_Tick;
             this.ResizeMode = System.Windows.ResizeMode.CanMinimize;
 
@@ -145,7 +147,7 @@ namespace GameOfLife
             {
                 for (int width = 0; width < CellNumberHeight; width++)
                 {
-                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
+                    if (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0))
                     {
                         Felder[height][width].Fill = Brushes.Gray;
                     }

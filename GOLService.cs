@@ -14,13 +14,17 @@ namespace GameOfLife
 
         public List<List<Rectangle>> Felder
         { get; set; }
+        
+        public bool useTorus
+        { get; set; }
 
 
-        public GOLService(int cellNumberWidth, int cellNumberHeight, List<List<Rectangle>> felder)
+        public GOLService(int cellNumberWidth, int cellNumberHeight, List<List<Rectangle>> felder, bool useTorus)
         {
             this.CellNumberWidth = cellNumberWidth;
             this.CellNumberHeight = cellNumberHeight;
             this.Felder = felder;
+            this.useTorus = useTorus;
         }
 
         public List<List<Rectangle>> adjustList(List<List<Rectangle>> list, int numberoflists)
@@ -83,7 +87,7 @@ namespace GameOfLife
             {
                 for (int width = 0; width < CellNumberHeight; width++)
                 {
-                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
+                    if (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0))
                     {
                         Felder[height][width].Fill = Brushes.Gray;
                     }
