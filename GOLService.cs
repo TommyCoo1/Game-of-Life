@@ -14,13 +14,17 @@ namespace GameOfLife
 
         public List<List<Rectangle>> Felder
         { get; set; }
+        
+        public bool useTorus
+        { get; set; }
 
 
-        public GOLService(int cellNumberWidth, int cellNumberHeight, List<List<Rectangle>> felder)
+        public GOLService(int cellNumberWidth, int cellNumberHeight, List<List<Rectangle>> felder, bool useTorus)
         {
             this.CellNumberWidth = cellNumberWidth;
             this.CellNumberHeight = cellNumberHeight;
             this.Felder = felder;
+            this.useTorus = useTorus;
         }
 
         public List<List<Rectangle>> adjustList(List<List<Rectangle>> list, int numberoflists)
@@ -37,9 +41,9 @@ namespace GameOfLife
         {
             int[,] anzahlNachbarn = new int[CellNumberHeight, CellNumberWidth];
 
-            for (int height = 0; height < CellNumberWidth; height++)
+            for (int height = 0; height < CellNumberHeight; height++)
             {
-                for (int width = 0; width < CellNumberHeight; width++)
+                for (int width = 0; width < CellNumberWidth; width++)
                 {
                     int topCell = height - 1;
                     if (topCell < 0)
@@ -79,11 +83,11 @@ namespace GameOfLife
                 }
             }
 
-            for (int height = 0; height < CellNumberWidth; height++)
+            for (int height = 0; height < CellNumberHeight; height++)
             {
-                for (int width = 0; width < CellNumberHeight; width++)
+                for (int width = 0; width < CellNumberWidth; width++)
                 {
-                    if (height == CellNumberHeight-1 || width == CellNumberWidth-1 || height == 0 || width == 0)
+                    if (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0))
                     {
                         Felder[height][width].Fill = Brushes.Gray;
                     }
