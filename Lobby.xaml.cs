@@ -16,13 +16,13 @@ namespace GameOfLife
         {
             
             Regex regex = new Regex("[^0-9]+");
-            if (regex.IsMatch(fieldWidth.Text) || regex.IsMatch(fieldHeight.Text))
+            if (regex.IsMatch(tbxFieldWidth.Text) || regex.IsMatch(tbxfieldHeight.Text))
             {
                 MessageBox.Show("Bitte geben Sie für die Feldgröße eine Ganzzahl an!");
             }
             
 
-            MainWindow game = new MainWindow((bool)useTorus.IsChecked, Convert.ToInt32(fieldHeight.Text), Convert.ToInt32(fieldWidth.Text));
+            MainWindow game = new MainWindow((bool)chkUseTorus.IsChecked, Convert.ToInt32(tbxfieldHeight.Text), Convert.ToInt32(tbxFieldWidth.Text));
             game.Show();
             game.InitializeComponent();
         }

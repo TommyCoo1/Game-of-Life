@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="Lobby" Height="200" Width="600">
     <Grid>
-        <Label HorizontalAlignment="Left" Margin="380,0,0,100" VerticalAlignment="Bottom">Spielfeldbreite</Label>
-        <TextBox x:Name="fieldWidth" HorizontalAlignment="Left" Height="30" Margin="320,0,0,100" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="60" RenderTransformOrigin="2.796,-1.581" Text="18" FontSize="18" TextAlignment="Center"/>
-        <Label HorizontalAlignment="Left" Margin="220,0,0,100" VerticalAlignment="Bottom">Spielfeldlänge</Label>
-        <TextBox x:Name="fieldHeight" HorizontalAlignment="Left" Height="30" Margin="160,0,0,100" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="60" RenderTransformOrigin="2.796,-1.581" Text="32" FontSize="18" TextAlignment="Center"/>
-        <Label HorizontalAlignment="Left" Margin="285,0,0,65" VerticalAlignment="Bottom">Torus</Label>
-        <CheckBox x:Name="useTorus" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="260,0,0,70"></CheckBox>
-        <Button Content="Start Game" HorizontalAlignment="Left" Margin="225,0,0,20" VerticalAlignment="Bottom" Width="150" Height="30" FontSize="20" Click="Button_start_game"/>
+        <Label x:Name="lblGameWidth" HorizontalAlignment="Left" Margin="380,0,0,100" VerticalAlignment="Bottom">Spielfeldbreite</Label>
+        <TextBox x:Name="tbxFieldWidth" HorizontalAlignment="Left" Height="30" Margin="320,0,0,100" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="60" RenderTransformOrigin="2.796,-1.581" Text="18" FontSize="18" TextAlignment="Center"/>
+        <Label x:Name="lblGameHeight" HorizontalAlignment="Left" Margin="220,0,0,100" VerticalAlignment="Bottom">Spielfeldlänge</Label>
+        <TextBox x:Name="tbxfieldHeight" HorizontalAlignment="Left" Height="30" Margin="160,0,0,100" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="60" RenderTransformOrigin="2.796,-1.581" Text="32" FontSize="18" TextAlignment="Center"/>
+        <Label x:Name="lblTorus" HorizontalAlignment="Left" Margin="285,0,0,65" VerticalAlignment="Bottom">Torus</Label>
+        <CheckBox x:Name="chkUseTorus" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="260,0,0,70"></CheckBox>
+        <Button x:Name="btnStartGame" Content="Start Game" HorizontalAlignment="Left" Margin="225,0,0,20" VerticalAlignment="Bottom" Width="150" Height="30" FontSize="20" Click="Button_start_game"/>
         
         
     </Grid>

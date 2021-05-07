@@ -22,7 +22,7 @@ namespace GameOfLife
     public partial class MainWindow : Window
     {
         DispatcherTimer timer = new DispatcherTimer();
-        List<List<Rectangle>> Felder = new List<List<Rectangle>>();
+        List<List<Rectangle>> Fields = new List<List<Rectangle>>();
         int timerticks = 0;
         private GOLService service;
         
@@ -39,10 +39,10 @@ namespace GameOfLife
             this.useTorus = useTorus;
             this.CellNumberHeight = cellNumberHeight;
             this.CellNumberWidth = cellNumberWidth;
-            service = new GOLService(CellNumberWidth, CellNumberHeight, Felder, this.useTorus);
+            service = new GOLService(CellNumberWidth, CellNumberHeight, Fields, this.useTorus);
             spielfeld.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             spielfeld.Arrange(new Rect(0.0, 0.0, spielfeld.DesiredSize.Width, spielfeld.DesiredSize.Height));
-            Felder = service.adjustList(Felder, CellNumberHeight);
+            Fields = service.adjustList(Fields, CellNumberHeight);
 
             for (int height = 0; height < CellNumberHeight; height++)
             {
@@ -58,7 +58,7 @@ namespace GameOfLife
                         Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
                         Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
 
-                        Felder[height].Add(r);
+                        Fields[height].Add(r);
                     }
                     else
                     {
@@ -71,7 +71,7 @@ namespace GameOfLife
                         Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
                         r.MouseDown += R_MouseDown;
 
-                        Felder[height].Add(r);
+                        Fields[height].Add(r);
 
                     }
                 }
@@ -88,7 +88,7 @@ namespace GameOfLife
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Felder = service.updateCells();
+            Fields = service.updateCells();
             tbxTimerTicks.Text = Convert.ToString(++timerticks);
         }
 
@@ -108,7 +108,7 @@ namespace GameOfLife
                     Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
                     r.MouseDown += R_MouseDown;
 
-                    Felder[height].Add(r);
+                    Fields[height].Add(r);
                 }
             }
         }
@@ -121,7 +121,7 @@ namespace GameOfLife
 
         private void Button_Naester_Schritt_Click(object sender, RoutedEventArgs e)
         {
-            Felder = service.updateCells();
+            Fields = service.updateCells();
             tbxTimerTicks.Text = Convert.ToString(++timerticks);
         }
 
@@ -130,12 +130,12 @@ namespace GameOfLife
             if (timer.IsEnabled)
             {
                 timer.Stop();
-                startstop.Content = "Starte Animation!";
+                btnStartStop.Content = "Start";
             }
             else
             {
                 timer.Start();
-                startstop.Content = "Stoppe Animation!";
+                btnStartStop.Content = "Stop";
             }
         }
 
@@ -149,11 +149,11 @@ namespace GameOfLife
                 {
                     if (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0))
                     {
-                        Felder[height][width].Fill = Brushes.Gray;
+                        Fields[height][width].Fill = Brushes.Gray;
                     }
                     else
                     {
-                        Felder[height][width].Fill = (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
+                        Fields[height][width].Fill = (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
                     }
                 }
             }
@@ -173,8 +173,8 @@ namespace GameOfLife
             {
                 for (int width = 0; width < CellNumberWidth; width++)
                 {
-                    if (Felder[height][width].Fill == Brushes.DeepPink)
-                        Felder[height][width].Fill = Brushes.MediumAquamarine;
+                    if (Fields[height][width].Fill == Brushes.DeepPink)
+                        Fields[height][width].Fill = Brushes.MediumAquamarine;
                 }
             }
             timerticks = 0;

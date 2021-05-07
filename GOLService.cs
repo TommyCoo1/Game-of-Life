@@ -12,18 +12,18 @@ namespace GameOfLife
         public int CellNumberHeight
         { get; set; }
 
-        public List<List<Rectangle>> Felder
+        public List<List<Rectangle>> Fields
         { get; set; }
         
         public bool useTorus
         { get; set; }
 
 
-        public GOLService(int cellNumberWidth, int cellNumberHeight, List<List<Rectangle>> felder, bool useTorus)
+        public GOLService(int cellNumberWidth, int cellNumberHeight, List<List<Rectangle>> fields, bool useTorus)
         {
             this.CellNumberWidth = cellNumberWidth;
             this.CellNumberHeight = cellNumberHeight;
-            this.Felder = felder;
+            this.Fields = fields;
             this.useTorus = useTorus;
         }
 
@@ -39,7 +39,7 @@ namespace GameOfLife
 
         public List<List<Rectangle>> updateCells()
         {
-            int[,] anzahlNachbarn = new int[CellNumberHeight, CellNumberWidth];
+            int[,] neighbournumber = new int[CellNumberHeight, CellNumberWidth];
 
             for (int height = 0; height < CellNumberHeight; height++)
             {
@@ -58,26 +58,26 @@ namespace GameOfLife
                     if (rightCell >= CellNumberWidth)
                         rightCell = 0;
 
-                    int nachbarn = 0;
+                    int neighbours = 0;
 
-                    if (Felder[topCell][leftCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[topCell][width].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[topCell][rightCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[height][leftCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[height][rightCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[botCell][leftCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[botCell][width].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
-                    if (Felder[botCell][rightCell].Fill == Brushes.DeepPink)
-                    { nachbarn++; }
+                    if (Fields[topCell][leftCell].Fill == Brushes.DeepPink)
+                    { neighbours++; }
+                    if (Fields[topCell][width].Fill == Brushes.DeepPink)
+                    { neighbours++; }
+                    if (Fields[topCell][rightCell].Fill == Brushes.DeepPink)
+                    { neighbours++; }
+                    if (Fields[height][leftCell].Fill == Brushes.DeepPink)
+                    { neighbours++; }
+                    if (Fields[height][rightCell].Fill == Brushes.DeepPink)
+                    { neighbours++; }
+                    if (Fields[botCell][leftCell].Fill == Brushes.DeepPink)
+                    { neighbours++; }
+                    if (Fields[botCell][width].Fill == Brushes.DeepPink)
+                    { neighbours++; }
+                    if (Fields[botCell][rightCell].Fill == Brushes.DeepPink)
+                    { neighbours++; }
 
-                    anzahlNachbarn[height, width] = nachbarn;
+                    neighbournumber[height, width] = neighbours;
 
 
                 }
@@ -89,23 +89,23 @@ namespace GameOfLife
                 {
                     if (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0))
                     {
-                        Felder[height][width].Fill = Brushes.Gray;
+                        Fields[height][width].Fill = Brushes.Gray;
                     }
                     else
                     {
-                        if (anzahlNachbarn[height, width] < 2 || anzahlNachbarn[height, width] > 3)
+                        if (neighbournumber[height, width] < 2 || neighbournumber[height, width] > 3)
                         {
-                            Felder[height][width].Fill = Brushes.MediumAquamarine;
+                            Fields[height][width].Fill = Brushes.MediumAquamarine;
                         }
-                        else if (anzahlNachbarn[height, width] == 3)
+                        else if (neighbournumber[height, width] == 3)
                         {
-                            Felder[height][width].Fill = Brushes.DeepPink;
+                            Fields[height][width].Fill = Brushes.DeepPink;
                         }
                     }
                 }
             }
 
-            return Felder;
+            return Fields;
         }
 
     }
