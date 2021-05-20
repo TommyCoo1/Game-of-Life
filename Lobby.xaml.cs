@@ -14,7 +14,11 @@ namespace GameOfLife
 
         public void Button_start_game(object sender, RoutedEventArgs e)
         {
-            
+         
+            /*
+             * A regex check to make sure the user did not input something thats not a integer value
+             * for the field size
+             */
             Regex regex = new Regex("[^0-9]+");
             if (regex.IsMatch(tbxFieldWidth.Text) || regex.IsMatch(tbxfieldHeight.Text))
             {

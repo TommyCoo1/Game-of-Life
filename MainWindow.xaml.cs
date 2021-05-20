@@ -44,6 +44,11 @@ namespace GameOfLife
             gamefield.Arrange(new Rect(0.0, 0.0, gamefield.DesiredSize.Width, gamefield.DesiredSize.Height));
             Fields = service.adjustList(Fields, CellNumberHeight);
 
+            /*
+             * A for loop to iniate every cell as a dead cell starting from the Y-axis with an inner loop
+             * for the X-axis. We include a check for the use of a torus, that way we either implement "disabled" cells for
+             * the case that the user deactivated the use of a torus. 
+             */
             for (int height = 0; height < CellNumberHeight; height++)
             {
                 for (int width = 0; width < CellNumberWidth; width++)
@@ -77,11 +82,17 @@ namespace GameOfLife
                 }
             }
 
+            /*
+             * This is used as a fix for the camera position when the game starts
+             */
             TransformGroup group = new TransformGroup();
             group.Children.Add(new TranslateTransform(-20, -10));
             gamefield.RenderTransform = group;
 
             timer.Tick += Timer_Tick;
+            /*
+             * Disabling the ability to resize the windows
+             */
             this.ResizeMode = System.Windows.ResizeMode.CanMinimize;
 
         }
@@ -90,27 +101,6 @@ namespace GameOfLife
         {
             Fields = service.updateCells();
             tbxTimerTicks.Text = Convert.ToString(++timerticks);
-        }
-
-        private void start_button_Click(object sender, RoutedEventArgs e)
-        {
-
-            for (int height = 0; height < CellNumberHeight; height++)
-            {
-                for (int width = 0; width < CellNumberWidth; width++)
-                {
-                    Rectangle r = new Rectangle();
-                    r.Width = (gamefield.ActualWidth / CellNumberWidth) - 1.0;
-                    r.Height = (gamefield.ActualHeight / CellNumberHeight) - 1.0;
-                    r.Fill = Brushes.MediumAquamarine;
-                    gamefield.Children.Add(r);
-                    Canvas.SetLeft(r, width * gamefield.ActualWidth / CellNumberWidth);
-                    Canvas.SetTop(r, height * gamefield.ActualHeight / CellNumberHeight);
-                    r.MouseDown += R_MouseDown;
-
-                    Fields[height].Add(r);
-                }
-            }
         }
 
         private void R_MouseDown(object sender, MouseButtonEventArgs e)
@@ -139,6 +129,10 @@ namespace GameOfLife
             }
         }
 
+        /*
+         * We run through both Y and X-axis and check if the integer value that we get from our random.Next call is a 1.
+         * If yes we set the cell dead else we set it to alive.
+         */
         private void random_button(object sender, RoutedEventArgs e)
         {
             Random random = new Random();
