@@ -25,7 +25,7 @@ namespace GameOfLife
         List<List<Rectangle>> Fields = new List<List<Rectangle>>();
         int timerticks = 0;
         private GOLService service;
-        
+
         public bool useTorus
         { get; set; }
         public int CellNumberWidth
@@ -40,8 +40,8 @@ namespace GameOfLife
             this.CellNumberHeight = cellNumberHeight;
             this.CellNumberWidth = cellNumberWidth;
             service = new GOLService(CellNumberWidth, CellNumberHeight, Fields, this.useTorus);
-            spielfeld.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            spielfeld.Arrange(new Rect(0.0, 0.0, spielfeld.DesiredSize.Width, spielfeld.DesiredSize.Height));
+            gamefield.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            gamefield.Arrange(new Rect(0.0, 0.0, gamefield.DesiredSize.Width, gamefield.DesiredSize.Height));
             Fields = service.adjustList(Fields, CellNumberHeight);
 
             for (int height = 0; height < CellNumberHeight; height++)
@@ -51,24 +51,24 @@ namespace GameOfLife
                     if (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0))
                     {
                         Rectangle r = new Rectangle();
-                        r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
-                        r.Height = (spielfeld.ActualHeight / CellNumberHeight) - 1.0;
+                        r.Width = (gamefield.ActualWidth / CellNumberWidth) - 1.0;
+                        r.Height = (gamefield.ActualHeight / CellNumberHeight) - 1.0;
                         r.Fill = Brushes.Gray;
-                        spielfeld.Children.Add(r);
-                        Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
-                        Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
+                        gamefield.Children.Add(r);
+                        Canvas.SetLeft(r, width * gamefield.ActualWidth / CellNumberWidth);
+                        Canvas.SetTop(r, height * gamefield.ActualHeight / CellNumberHeight);
 
                         Fields[height].Add(r);
                     }
                     else
                     {
                         Rectangle r = new Rectangle();
-                        r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
-                        r.Height = (spielfeld.ActualHeight / CellNumberHeight) - 1.0;
+                        r.Width = (gamefield.ActualWidth / CellNumberWidth) - 1.0;
+                        r.Height = (gamefield.ActualHeight / CellNumberHeight) - 1.0;
                         r.Fill = Brushes.MediumAquamarine;
-                        spielfeld.Children.Add(r);
-                        Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
-                        Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
+                        gamefield.Children.Add(r);
+                        Canvas.SetLeft(r, width * gamefield.ActualWidth / CellNumberWidth);
+                        Canvas.SetTop(r, height * gamefield.ActualHeight / CellNumberHeight);
                         r.MouseDown += R_MouseDown;
 
                         Fields[height].Add(r);
@@ -79,8 +79,8 @@ namespace GameOfLife
 
             TransformGroup group = new TransformGroup();
             group.Children.Add(new TranslateTransform(-20, -10));
-            spielfeld.RenderTransform = group;
-            
+            gamefield.RenderTransform = group;
+
             timer.Tick += Timer_Tick;
             this.ResizeMode = System.Windows.ResizeMode.CanMinimize;
 
@@ -100,12 +100,12 @@ namespace GameOfLife
                 for (int width = 0; width < CellNumberWidth; width++)
                 {
                     Rectangle r = new Rectangle();
-                    r.Width = (spielfeld.ActualWidth / CellNumberWidth) - 1.0;
-                    r.Height = (spielfeld.ActualHeight / CellNumberHeight) - 1.0;
+                    r.Width = (gamefield.ActualWidth / CellNumberWidth) - 1.0;
+                    r.Height = (gamefield.ActualHeight / CellNumberHeight) - 1.0;
                     r.Fill = Brushes.MediumAquamarine;
-                    spielfeld.Children.Add(r);
-                    Canvas.SetLeft(r, width * spielfeld.ActualWidth / CellNumberWidth);
-                    Canvas.SetTop(r, height * spielfeld.ActualHeight / CellNumberHeight);
+                    gamefield.Children.Add(r);
+                    Canvas.SetLeft(r, width * gamefield.ActualWidth / CellNumberWidth);
+                    Canvas.SetTop(r, height * gamefield.ActualHeight / CellNumberHeight);
                     r.MouseDown += R_MouseDown;
 
                     Fields[height].Add(r);
@@ -113,7 +113,7 @@ namespace GameOfLife
             }
         }
 
-        private void R_MouseDown(object sender, MouseButtonEventArgs e) // TODO: maybe Methoden Namen ändern
+        private void R_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ((Rectangle)sender).Fill =
                 (((Rectangle)sender).Fill == Brushes.MediumAquamarine) ? Brushes.DeepPink : Brushes.MediumAquamarine;
@@ -142,19 +142,13 @@ namespace GameOfLife
         private void random_button(object sender, RoutedEventArgs e)
         {
             Random random = new Random();
-            
+
             for (int height = 0; height < CellNumberHeight; height++)
             {
                 for (int width = 0; width < CellNumberWidth; width++)
                 {
-                    if (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0))
-                    {
-                        Fields[height][width].Fill = Brushes.Gray;
-                    }
-                    else
-                    {
-                        Fields[height][width].Fill = (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
-                    }
+                    Fields[height][width].Fill = (!useTorus && (height == CellNumberHeight - 1 || width == CellNumberWidth - 1 || height == 0 || width == 0)) ? Brushes.Gray
+                        : (random.Next(0, 2) == 1) ? Brushes.MediumAquamarine : Brushes.DeepPink;
                 }
             }
         }

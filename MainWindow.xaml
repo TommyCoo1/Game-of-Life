@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
         Title="Game of Life" Height="700" Width="1200">
-    <Grid>
+    <Grid Background="#FFA8EAF9">
         <Viewbox x:Name="ZoomViewbox" Margin="10,0,10,70">
-            <Canvas  x:Name="spielfeld" HorizontalAlignment="Left" Height="630" Margin="0,0,0,0" VerticalAlignment="Top" Width="1200"/>
+            <Canvas  x:Name="gamefield" HorizontalAlignment="Left" Height="630" Margin="0,0,0,0" VerticalAlignment="Top" Width="1200"/>
         </Viewbox>
         <Button x:Name="btnStartStop" Content="Start / Stop" HorizontalAlignment="Left" Margin="294,331,0,20" VerticalAlignment="Bottom" Width="203" Click="start_stop_button" Height="30" FontSize="20" RenderTransformOrigin="0.953,0.889"/>
         <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="200,0,0,20" VerticalAlignment="Bottom" Width="70" RenderTransformOrigin="1.655,0.65" Click="Button_Naester_Schritt_Click" Height="30" FontSize="20"/>
