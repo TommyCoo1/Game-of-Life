@@ -36,7 +36,11 @@ namespace GameOfLife
             return list;
         }
 
-
+        /*
+         * We take our gamefield the "two-dimensional List" and check if a cell is alive or not, via two for loops.
+         * The living cells are getting counted (neighbours).
+         * The number of neighbours is getting saved in a two dimensional Array, at the position of the currently iterated cell.
+         */
         public List<List<Rectangle>> updateCells()
         {
             int[,] neighbournumber = new int[CellNumberHeight, CellNumberWidth];
@@ -45,6 +49,9 @@ namespace GameOfLife
             {
                 for (int width = 0; width < CellNumberWidth; width++)
                 {
+                    /*
+                     * This Part is to get a "torus"-like behavior
+                     */
                     int topCell = height - 1;
                     if (topCell < 0)
                         topCell = CellNumberHeight - 1;
@@ -82,7 +89,11 @@ namespace GameOfLife
 
                 }
             }
-
+            /*
+             * On the basis of the numbers of neighbours (neighbournumber) we iterate through each cell and change the 
+             * status of the cell (dead/alive) by color change.
+             * Additionally we differentiate the torus case and with a non torus case a.
+             */
             for (int height = 0; height < CellNumberHeight; height++)
             {
                 for (int width = 0; width < CellNumberWidth; width++)
