@@ -50,7 +50,7 @@ namespace GameOfLife
                 for (int width = 0; width < CellNumberWidth; width++)
                 {
                     /*
-                     * This Part is to get a "torus"-like behavior
+                     * This Part is to get the neighbours of a cell
                      */
                     int topCell = height - 1;
                     if (topCell < 0)
