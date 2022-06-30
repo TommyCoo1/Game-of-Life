@@ -1,2 +1,2 @@
 # Game-of-Life
-FA93 Klausurersatzleistung
+GUI created with WPF for simulating the Game-of-Life
